@@ -1,6 +1,13 @@
 part of 'image_gen_cubit.dart';
 
-@immutable
-sealed class ImageGenState {}
+@freezed
+class ImageGenState with _$ImageGenState {
 
-final class ImageGenInitial extends ImageGenState {}
+  const ImageGenState._();
+
+  const factory ImageGenState({
+    @Default("") String prompt
+  }) = _Initial;
+
+}
+

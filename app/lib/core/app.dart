@@ -1,4 +1,9 @@
+import 'package:app/core/di/injectable.dart';
+import 'package:app/features/imageGen/presentation/cubit/image_gen_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nested/nested.dart';
+import 'package:provider/provider.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -8,14 +13,53 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+
+  late ImageGenCubit imageGenCubit;
+
+  @override
+  void initState() {
+    super.initState();
+    imageGenCubit = si<ImageGenCubit>();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Image Gen',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+    return MultiProvider(
+      providers: providers,
+      child: MaterialApp(
+        title: 'Image Gen',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        builder: (context, child) => Overlay(
+          initialEntries: [
+            OverlayEntry(
+              builder: (context) => MediaQuery(
+                data: MediaQuery.of(context).copyWith(
+                    systemGestureInsets:
+                        const EdgeInsets.all(400),
+                    navigationMode:
+                        NavigationMode.directional,
+                    textScaler:
+                        const TextScaler.linear(1.00)),
+                child: Scaffold(
+                  backgroundColor: Colors.white,
+                  resizeToAvoidBottomInset: true,
+                  body: child
+                )
+              ),
+            )
+          ],
+        )
       ),
     );
   }
+
+  List<SingleChildWidget> get providers {
+    return [
+      BlocProvider<ImageGenCubit>.value(value: imageGenCubit)
+    ];
+  } 
+
 }
