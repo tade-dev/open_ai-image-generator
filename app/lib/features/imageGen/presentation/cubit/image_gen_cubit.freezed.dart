@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$ImageGenState {
-  String get prompt => throw _privateConstructorUsedError;
+  TextEditingController? get prompt => throw _privateConstructorUsedError;
 
   /// Create a copy of ImageGenState
   /// with the given fields replaced by the non-null parameter values.
@@ -31,7 +31,7 @@ abstract class $ImageGenStateCopyWith<$Res> {
           ImageGenState value, $Res Function(ImageGenState) then) =
       _$ImageGenStateCopyWithImpl<$Res, ImageGenState>;
   @useResult
-  $Res call({String prompt});
+  $Res call({TextEditingController? prompt});
 }
 
 /// @nodoc
@@ -49,13 +49,13 @@ class _$ImageGenStateCopyWithImpl<$Res, $Val extends ImageGenState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? prompt = null,
+    Object? prompt = freezed,
   }) {
     return _then(_value.copyWith(
-      prompt: null == prompt
+      prompt: freezed == prompt
           ? _value.prompt
           : prompt // ignore: cast_nullable_to_non_nullable
-              as String,
+              as TextEditingController?,
     ) as $Val);
   }
 }
@@ -68,7 +68,7 @@ abstract class _$$InitialImplCopyWith<$Res>
       __$$InitialImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String prompt});
+  $Res call({TextEditingController? prompt});
 }
 
 /// @nodoc
@@ -84,13 +84,13 @@ class __$$InitialImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? prompt = null,
+    Object? prompt = freezed,
   }) {
     return _then(_$InitialImpl(
-      prompt: null == prompt
+      prompt: freezed == prompt
           ? _value.prompt
           : prompt // ignore: cast_nullable_to_non_nullable
-              as String,
+              as TextEditingController?,
     ));
   }
 }
@@ -98,11 +98,10 @@ class __$$InitialImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$InitialImpl extends _Initial {
-  const _$InitialImpl({this.prompt = ""}) : super._();
+  const _$InitialImpl({this.prompt}) : super._();
 
   @override
-  @JsonKey()
-  final String prompt;
+  final TextEditingController? prompt;
 
   @override
   String toString() {
@@ -130,11 +129,11 @@ class _$InitialImpl extends _Initial {
 }
 
 abstract class _Initial extends ImageGenState {
-  const factory _Initial({final String prompt}) = _$InitialImpl;
+  const factory _Initial({final TextEditingController? prompt}) = _$InitialImpl;
   const _Initial._() : super._();
 
   @override
-  String get prompt;
+  TextEditingController? get prompt;
 
   /// Create a copy of ImageGenState
   /// with the given fields replaced by the non-null parameter values.

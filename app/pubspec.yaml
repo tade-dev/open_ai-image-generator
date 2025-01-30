@@ -28,6 +28,9 @@ dependencies:
   top_snackbar_flutter: ^3.1.0
   provider: ^6.1.2
   nested: ^1.0.0
+  hugeicons: ^0.0.7
+  iconsax: ^0.0.8
+  flutter_animate: ^4.5.2
 
 dev_dependencies:
   flutter_test:
@@ -45,8 +48,26 @@ flutter:
   
   assets:
     - .env
+    - assets/icon/
+    - assets/images/
+    - assets/png/
+    - assets/svg/
 
-  
+  fonts:
+  - family: Urbanist
+    fonts:
+    - asset: assets/fonts/urbanist/Urbanist-Regular.ttf
+      weight: 400
+      style: normal
+    - asset: assets/fonts/urbanist/Urbanist-Medium.ttf
+      weight: 500
+      style: normal
+    - asset: assets/fonts/urbanist/Urbanist-SemiBold.ttf
+      weight: 600
+      style: normal
+    - asset: assets/fonts/urbanist/Urbanist-Bold.ttf
+      weight: 700
+      style: normal
   
 
   
