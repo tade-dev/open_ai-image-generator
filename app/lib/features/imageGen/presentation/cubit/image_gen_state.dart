@@ -28,5 +28,24 @@ class ImageGenState with _$ImageGenState {
     },
   ];
 
+  List<Map<String, dynamic>> get recents => [
+    {
+      'prompt': 'Generate an image of brad pitt in New York',
+      "timeStamp": "45 minutes ago"
+    },
+    {
+      'prompt': 'Generate an image of an homelesss man getting his first big break',
+      "timeStamp": "1 hour ago"
+    },
+    {
+      'prompt': 'Generate an image of cats and dogs fighting',
+      "timeStamp": "Yesterday"
+    },
+    {
+      'prompt': 'Generate an image of a singer having a coffee',
+      "timeStamp": "Yesterday"
+    },
+  ];
+
 }
 

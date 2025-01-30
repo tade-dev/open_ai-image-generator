@@ -1,7 +1,12 @@
+import 'package:app/core/di/injectable.dart';
 import 'package:app/core/resources/colors_x.dart';
 import 'package:app/core/resources/styles_x.dart';
+import 'package:app/core/route/route.gr.dart';
+import 'package:app/features/imageGen/presentation/components/recents_tile.dart';
+import 'package:app/features/imageGen/presentation/components/suggestion_tile.dart';
 import 'package:app/features/imageGen/presentation/cubit/image_gen_cubit.dart';
 import 'package:app/features/imageGen/presentation/widgets/ai_bar.dart';
+import 'package:app/features/imageGen/presentation/widgets/prompt_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,17 +21,21 @@ class HomePageView extends StatelessWidget {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(50),
         child: Aibar(
-          title: "Image Generator",
+          title: "Image Generator 🚀",
           actions: [
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                si<AppRouter>().push(const ChatHistoryView());
+              },
               icon: const Icon(
                 Iconsax.clock,
                 color: ColorManager.primaryTextColor,
               ),
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                si<AppRouter>().push(const ChatRoomView());
+              },
               icon: const Icon(
                 Iconsax.edit,
                 color: ColorManager.primaryTextColor,
@@ -35,16 +44,59 @@ class HomePageView extends StatelessWidget {
           ],
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              const SizedBox(height: 20,),
-              buildImageSuggestions(),
-              const SizedBox(height: 20,),
-            ],
-          ),
+      body: SafeArea(
+        top: false,
+        child: Column(
+          children: [
+            Expanded(
+              flex: 12,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 20,),
+                      buildImageSuggestions(),
+                      const SizedBox(height: 20,),
+                      Text(
+                        "Recents",
+                        style: getBoldStyle(
+                          color: ColorManager.primaryTextColor,
+                          fontSize: 18
+                        ),
+                      ).animate()
+                      .fade(
+                        delay: const Duration(milliseconds: 1000),
+                         duration: const Duration(milliseconds: 1000),
+                        begin: 0,
+                        end: 1
+                      ).scale(
+                        duration: const Duration(milliseconds: 800),
+                        curve: const ElasticInOutCurve()
+                      ),
+                      const SizedBox(height: 5,),
+                      buildRecents(),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              flex: 2,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Center(
+                  child: PromptField(
+                    onChanged: (value) {
+                      
+                    },
+                    hintText: "Ask anything...",
+                  ),
+                )
+              ),
+            )
+          ],
         ),
       ),
     );
@@ -54,6 +106,7 @@ class HomePageView extends StatelessWidget {
     return BlocBuilder<ImageGenCubit, ImageGenState>(
       builder: (context, state) {
         return GridView.builder(
+          padding: EdgeInsets.zero,
           itemCount: state.imageSuggestions.length,
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
@@ -65,61 +118,37 @@ class HomePageView extends StatelessWidget {
           ), 
           itemBuilder:(context, index) {
             var suggestion = state.imageSuggestions[index];
-            return Container(
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(
-                  6
-                ),
-                color: ColorManager.cardColor
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    flex: 9,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(
-                          3
-                        ),
-                        image: DecorationImage(
-                          image: AssetImage(
-                            suggestion["image"]
-                          ),
-                          fit: BoxFit.cover
-                        ),
-                        color: ColorManager.cardColor
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 5,),
-                  Text(
-                    suggestion["prompt"],
-                    maxLines: 1,
-                    style: getMediumStyle(
-                      color: ColorManager.primaryTextColor,
-                      fontSize: 13
-                    ),
-                  )
-                ],
-              ),
+            return SuggestionTile(
+              title: suggestion["prompt"], 
+              imagePath: suggestion["image"]
             );
           },
-        ).animate()
-        .fade(
-          duration: const Duration(milliseconds: 1200),
-          curve: Curves.easeInOut,
-          begin: 0,
-          end: 1
-        )
-        .slide(
-          begin: const Offset(0, -1),
-          end: const Offset(0, 0),
-          duration: const Duration(milliseconds: 900),
-          curve: Curves.easeInOut,
         );
       },
     );
   }
+
+  buildRecents() {
+    return BlocBuilder<ImageGenCubit, ImageGenState>(
+      builder: (context, state) {
+        return ListView.separated(
+          padding: EdgeInsets.zero,
+          itemCount: state.recents.length,
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true, 
+          separatorBuilder: (context, index) => const SizedBox(height: 10,),
+          itemBuilder:(context, index) {
+            var recents = state.recents[index];
+            return RecentsTile(
+              timeStamp: recents["timeStamp"].toString(), 
+              title: recents["prompt"], 
+              onTap: (){},
+              index: index,
+            );
+          },
+        );
+      },
+    );
+  }
+
 }

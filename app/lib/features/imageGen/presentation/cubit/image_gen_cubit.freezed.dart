@@ -18,9 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$ImageGenState {
   TextEditingController? get prompt => throw _privateConstructorUsedError;
 
-  /// Create a copy of ImageGenState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $ImageGenStateCopyWith<ImageGenState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -44,8 +42,6 @@ class _$ImageGenStateCopyWithImpl<$Res, $Val extends ImageGenState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of ImageGenState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -79,8 +75,6 @@ class __$$InitialImplCopyWithImpl<$Res>
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of ImageGenState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -119,9 +113,7 @@ class _$InitialImpl extends _Initial {
   @override
   int get hashCode => Object.hash(runtimeType, prompt);
 
-  /// Create a copy of ImageGenState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>
@@ -134,11 +126,8 @@ abstract class _Initial extends ImageGenState {
 
   @override
   TextEditingController? get prompt;
-
-  /// Create a copy of ImageGenState
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
