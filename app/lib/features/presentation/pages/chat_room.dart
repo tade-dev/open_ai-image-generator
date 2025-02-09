@@ -1,8 +1,8 @@
 import 'package:app/core/di/injectable.dart';
 import 'package:app/core/resources/colors_x.dart';
 import 'package:app/core/route/route.gr.dart';
-import 'package:app/features/imageGen/presentation/widgets/ai_bar.dart';
-import 'package:app/features/imageGen/presentation/widgets/prompt_field.dart';
+import 'package:app/features/presentation/widgets/ai_bar.dart';
+import 'package:app/features/presentation/widgets/prompt_field.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 

@@ -10,7 +10,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:app/core/api/api.dart' as _i4;
 import 'package:app/core/route/route.dart' as _i3;
-import 'package:app/features/imageGen/presentation/cubit/image_gen_cubit.dart'
+import 'package:app/features/presentation/cubit/image_gen_cubit.dart'
     as _i5;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;

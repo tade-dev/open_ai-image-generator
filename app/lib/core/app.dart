@@ -1,7 +1,7 @@
 import 'package:app/core/di/injectable.dart';
 import 'package:app/core/route/route.gr.dart';
 import 'package:app/core/services/theme.dart';
-import 'package:app/features/imageGen/presentation/cubit/image_gen_cubit.dart';
+import 'package:app/features/presentation/cubit/image_gen_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nested/nested.dart';

@@ -14,9 +14,9 @@
 import 'package:auto_route/auto_route.dart' as _i4;
 import 'package:flutter/material.dart' as _i5;
 
-import '../../features/imageGen/presentation/pages/chat_history.dart' as _i2;
-import '../../features/imageGen/presentation/pages/chat_room.dart' as _i3;
-import '../../features/imageGen/presentation/pages/home.dart' as _i1;
+import '../../features/presentation/pages/chat_history.dart' as _i2;
+import '../../features/presentation/pages/chat_room.dart' as _i3;
+import '../../features/presentation/pages/home.dart' as _i1;
 
 class AppRouter extends _i4.RootStackRouter {
   AppRouter([_i5.GlobalKey<_i5.NavigatorState>? navigatorKey])
