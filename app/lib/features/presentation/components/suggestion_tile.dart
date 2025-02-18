@@ -10,10 +10,12 @@ class SuggestionTile extends StatelessWidget {
     super.key,
     required this.title,
     required this.imagePath,
+    required this.onTap,
   });
 
-  String? title;
-  String? imagePath;
+  String title;
+  String imagePath;
+  Function() onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +39,7 @@ class SuggestionTile extends StatelessWidget {
                 ),
                 image: DecorationImage(
                   image: AssetImage(
-                    imagePath ?? ""
+                    imagePath
                   ),
                   fit: BoxFit.cover
                 ),
@@ -47,7 +49,7 @@ class SuggestionTile extends StatelessWidget {
           ),
           const SizedBox(height: 5,),
           Text(
-            title ?? "",
+            title,
             maxLines: 1,
             style: getMediumStyle(
               color: ColorManager.primaryTextColor,

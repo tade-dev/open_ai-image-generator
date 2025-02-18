@@ -11,13 +11,15 @@ class RecentsTile extends StatelessWidget {
     required this.timeStamp,
     required this.title,
     required this.onTap,
-    this.index = 0
+    this.index = 0,
+    this.isFromHome = false,
   });
 
   String timeStamp;
   String title;
   Function()? onTap;
   int index;
+  bool isFromHome;
 
   @override
   Widget build(BuildContext context) {
@@ -53,12 +55,12 @@ class RecentsTile extends StatelessWidget {
         ),
       ).animate()
       .fade(
-        delay: const Duration(milliseconds: 2000),
+        delay: isFromHome ? const Duration(milliseconds: 2000) : const Duration(milliseconds: 10),
         begin: 0,
         end: 1
       )
       .slide(
-        delay: Duration(milliseconds: ((index * 100) + 2000).toInt()),
+        delay: isFromHome ? Duration(milliseconds: ((index * 100) + 2000).toInt()) : const Duration(milliseconds: 100),
         duration: const Duration(milliseconds: 500),
         begin: const Offset(0, 1),
         end: const Offset(0, 0),

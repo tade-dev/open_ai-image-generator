@@ -7,6 +7,13 @@ class ImageGenState with _$ImageGenState {
 
   const factory ImageGenState({
     TextEditingController? prompt,
+    GenImageModel? genImage,
+    ImageDatum? genImageData,
+    @Default([]) List<String> recentImages,
+    List<RecentPromptModel>? recentsPrompts,
+    List<Message>? promptMessages,
+    @Default(FormzSubmissionStatus.initial) FormzSubmissionStatus generateImageStatus,
+    @Default(FormzSubmissionStatus.initial) FormzSubmissionStatus reGenerateImageStatus,
   }) = _Initial;
 
   List<Map<String, dynamic>> get imageSuggestions => [
@@ -27,25 +34,5 @@ class ImageGenState with _$ImageGenState {
       'image': Assets.images.lake.path,
     },
   ];
-
-  List<Map<String, dynamic>> get recents => [
-    {
-      'prompt': 'Generate an image of brad pitt in New York',
-      "timeStamp": "45 minutes ago"
-    },
-    {
-      'prompt': 'Generate an image of an homelesss man getting his first big break',
-      "timeStamp": "1 hour ago"
-    },
-    {
-      'prompt': 'Generate an image of cats and dogs fighting',
-      "timeStamp": "Yesterday"
-    },
-    {
-      'prompt': 'Generate an image of a singer having a coffee',
-      "timeStamp": "Yesterday"
-    },
-  ];
-
 }
 

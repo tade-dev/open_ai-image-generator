@@ -9,6 +9,17 @@
 
 import 'package:flutter/widgets.dart';
 
+class $AssetsIconGen {
+  const $AssetsIconGen();
+
+  /// File path: assets/icon/empty_icon.png
+  AssetGenImage get emptyIcon =>
+      const AssetGenImage('assets/icon/empty_icon.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [emptyIcon];
+}
+
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
@@ -30,11 +41,31 @@ class $AssetsImagesGen {
   List<AssetGenImage> get values => [albert, catmilk, coffeeshop, lake];
 }
 
+class $AssetsSvgGen {
+  const $AssetsSvgGen();
+
+  /// File path: assets/svg/bx_stop-circle.svg
+  String get bxStopCircle => 'assets/svg/bx_stop-circle.svg';
+
+  /// File path: assets/svg/mynaui_arrow-up-right-circle-solid.svg
+  String get mynauiArrowUpRightCircleSolid =>
+      'assets/svg/mynaui_arrow-up-right-circle-solid.svg';
+
+  /// File path: assets/svg/profile_avatar.svg
+  String get profileAvatar => 'assets/svg/profile_avatar.svg';
+
+  /// List of all assets
+  List<String> get values =>
+      [bxStopCircle, mynauiArrowUpRightCircleSolid, profileAvatar];
+}
+
 class Assets {
-  Assets._();
+  const Assets._();
 
   static const String aEnv = '.env';
+  static const $AssetsIconGen icon = $AssetsIconGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
+  static const $AssetsSvgGen svg = $AssetsSvgGen();
 
   /// List of all assets
   static List<String> get values => [aEnv];
@@ -73,7 +104,7 @@ class AssetGenImage {
     bool gaplessPlayback = true,
     bool isAntiAlias = false,
     String? package,
-    FilterQuality filterQuality = FilterQuality.low,
+    FilterQuality filterQuality = FilterQuality.medium,
     int? cacheWidth,
     int? cacheHeight,
   }) {

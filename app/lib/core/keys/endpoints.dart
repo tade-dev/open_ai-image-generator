@@ -7,7 +7,7 @@ class Endpoints {
 }
 
 class _Keys {
-  final generateImage = "/v1/images/generations";
+  final generateImage = "images/generations";
 }
 
 final key = _Keys();

@@ -25,6 +25,7 @@ class PromptField extends StatelessWidget {
     this.maxLines = 1,
     this.minLines,
     this.readOnly = false,
+    this.autofocus = false,
     this.validator
   });
 
@@ -47,6 +48,7 @@ class PromptField extends StatelessWidget {
   final int? maxLines;
   final int? maxLength;
   final bool readOnly;
+  final bool autofocus;
   final FormFieldValidator<String>? validator;
 
   @override
@@ -63,6 +65,7 @@ class PromptField extends StatelessWidget {
       onSaved: onSaved,
       readOnly: readOnly,
       validator: validator,
+      autofocus: autofocus,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       onFieldSubmitted: onFieldSubmitted,
       onEditingComplete: onEditingComplete,
@@ -85,6 +88,7 @@ class PromptField extends StatelessWidget {
           borderSide: BorderSide.none,
           borderRadius: BorderRadius.circular(50)
         ),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
         focusedErrorBorder: OutlineInputBorder(

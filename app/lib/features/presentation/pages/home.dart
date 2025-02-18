@@ -2,14 +2,17 @@ import 'package:app/core/di/injectable.dart';
 import 'package:app/core/resources/colors_x.dart';
 import 'package:app/core/resources/styles_x.dart';
 import 'package:app/core/route/route.gr.dart';
+import 'package:app/features/presentation/components/empty_state.dart';
 import 'package:app/features/presentation/components/recents_tile.dart';
 import 'package:app/features/presentation/components/suggestion_tile.dart';
 import 'package:app/features/presentation/cubit/image_gen_cubit.dart';
-import 'package:app/features/presentation/widgets/ai_bar.dart';
-import 'package:app/features/presentation/widgets/prompt_field.dart';
+import 'package:app/features/presentation/widgets/app_bar/ai_bar.dart';
+import 'package:app/features/presentation/widgets/input/prompt_field.dart';
+import 'package:app/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:iconsax/iconsax.dart';
 
 class HomePageView extends StatelessWidget {
@@ -91,6 +94,13 @@ class HomePageView extends StatelessWidget {
                     onChanged: (value) {
                       
                     },
+                    suffixIcon: Visibility(
+                      child: SvgPicture.asset(
+                        Assets.svg.mynauiArrowUpRightCircleSolid,
+                        height: 10,
+                        width: 10,
+                      ),
+                    ).animate().fade().scale(),
                     hintText: "Ask anything...",
                   ),
                 )
@@ -119,6 +129,9 @@ class HomePageView extends StatelessWidget {
           itemBuilder:(context, index) {
             var suggestion = state.imageSuggestions[index];
             return SuggestionTile(
+              onTap: () {
+                si<AppRouter>().push(const ChatRoomView());
+              },
               title: suggestion["prompt"], 
               imagePath: suggestion["image"]
             );
@@ -127,28 +140,45 @@ class HomePageView extends StatelessWidget {
       },
     );
   }
-
-  buildRecents() {
-    return BlocBuilder<ImageGenCubit, ImageGenState>(
-      builder: (context, state) {
-        return ListView.separated(
-          padding: EdgeInsets.zero,
-          itemCount: state.recents.length,
-          physics: const NeverScrollableScrollPhysics(),
-          shrinkWrap: true, 
-          separatorBuilder: (context, index) => const SizedBox(height: 10,),
-          itemBuilder:(context, index) {
-            var recents = state.recents[index];
-            return RecentsTile(
-              timeStamp: recents["timeStamp"].toString(), 
-              title: recents["prompt"], 
-              onTap: (){},
-              index: index,
-            );
-          },
-        );
-      },
-    );
-  }
-
 }
+
+buildRecents(
+  {
+    bool isFromHome = true
+  }
+) {
+  return BlocBuilder<ImageGenCubit, ImageGenState>(
+    builder: (context, state) {
+      return (state.recentsPrompts == null || state.recentsPrompts!.isEmpty) ?
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 50),
+            child: EmptyStateWid(title: "No recent conversations", isFromHome: isFromHome,),
+          ),
+        ],
+      ):
+      ListView.separated(
+        padding: EdgeInsets.zero,
+        itemCount: state.recentsPrompts?.length ?? 0,
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true, 
+        separatorBuilder: (context, index) => const SizedBox(height: 10,),
+        itemBuilder: (context, index) {
+          var recents = state.recentsPrompts?[index];
+          return RecentsTile(
+            isFromHome: isFromHome,
+            timeStamp: recents?.createdAt ?? "", 
+            title: recents?.messages?.first.body ?? "", 
+            onTap: (){
+              si<AppRouter>().push(const ChatRoomView());
+            },
+            index: index,
+          );
+        },
+      );
+    },
+  );
+}
+

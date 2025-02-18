@@ -10,8 +10,12 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:app/core/api/api.dart' as _i4;
 import 'package:app/core/route/route.dart' as _i3;
-import 'package:app/features/presentation/cubit/image_gen_cubit.dart'
-    as _i5;
+import 'package:app/features/data/datasources/chat_s.dart' as _i8;
+import 'package:app/features/data/datasources/chat_service.dart' as _i7;
+import 'package:app/features/data/repositories/chat_impl.dart' as _i6;
+import 'package:app/features/domain/repository/chat_r.dart' as _i5;
+import 'package:app/features/domain/usecase/chat_u.dart' as _i9;
+import 'package:app/features/presentation/cubit/image_gen_cubit.dart' as _i10;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 
@@ -28,7 +32,17 @@ extension GetItInjectableX on _i1.GetIt {
     );
     gh.lazySingleton<_i3.$AppRouter>(() => _i3.$AppRouter());
     gh.lazySingleton<_i4.Api>(() => _i4.Api());
-    gh.lazySingleton<_i5.ImageGenCubit>(() => _i5.ImageGenCubit());
+    gh.factory<_i5.ChatRepository>(
+      () => _i6.ChatImpl(gh<_i7.ChatService>(instanceName: 'chatsource')),
+      instanceName: 'ChatRepository',
+    );
+    gh.factory<_i7.ChatService>(
+      () => _i8.ChatSource(api: gh<_i4.Api>()),
+      instanceName: 'chatservice',
+    );
+    gh.factory<_i9.GenerateImageUsecase>(() => _i9.GenerateImageUsecase(
+        gh<_i5.ChatRepository>(instanceName: 'ChatRepository')));
+    gh.lazySingleton<_i10.ImageGenCubit>(() => _i10.ImageGenCubit());
     return this;
   }
 }
